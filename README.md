@@ -1,5 +1,5 @@
 # Simulating Plasma Turbulence Using Dedalus
-This page documents my journey through my work on simulating edge plasma turbulence using the Dedalus code. In particular this work aims to implement Hasegawa-Mima/Terry-Horton like equations using pseudo-spectral methods. For this project I am using a Google Colab jupyter notebook. It turns out the installation of Dedalus is non-trivial so we first begin with the installation steps.
+This page documents my journey through my work on simulating edge plasma turbulence using the [Dedalus](https://dedalus-project.org/) code. In particular this work aims to implement Hasegawa-Mima/Terry-Horton like equations using pseudo-spectral methods. For this project I am using a Google Colab jupyter notebook. It turns out the installation of Dedalus is non-trivial so we first begin with the installation steps.
 ## Google Colab Installation
 
 Step 1: Install the FFTW libraries
