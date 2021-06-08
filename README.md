@@ -33,3 +33,4 @@ along with the Poisson equation\
 <a href="https://www.codecogs.com/eqnedit.php?latex=\nabla^2\psi&space;=&space;-\omega" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\nabla^2\psi&space;=&space;-\omega" title="\nabla^2\psi = -\omega" /></a>
 
 ## Dedalus Setup
+![hydro_result](plot_hydro.png)
