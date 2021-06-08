@@ -31,3 +31,5 @@ With these we cast the NSE into the vorticity formulation as follows:\
 <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial\omega}{\partial&space;t}&space;=&space;-[\omega,&space;\psi]&space;&plus;&space;\nu\nabla^2\omega" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial\omega}{\partial&space;t}&space;=&space;-[\omega,&space;\psi]&space;&plus;&space;\nu\nabla^2\omega" title="\frac{\partial\omega}{\partial t} = -[\omega, \psi] + \nu\nabla^2\omega" /></a>\
 along with the Poisson equation\
 <a href="https://www.codecogs.com/eqnedit.php?latex=\nabla^2\psi&space;=&space;-\omega" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\nabla^2\psi&space;=&space;-\omega" title="\nabla^2\psi = -\omega" /></a>\
+
+## Dedalus Setup
