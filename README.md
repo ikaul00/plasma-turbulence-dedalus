@@ -29,6 +29,8 @@ We consider this case along with the incompressibility condition <a href="https:
 With these we cast the NSE into the vorticity formulation as follows:
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial\omega}{\partial&space;t}&space;=&space;-[\omega,&space;\psi]&space;&plus;&space;\nu\nabla^2\omega" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial\omega}{\partial&space;t}&space;=&space;-[\omega,&space;\psi]&space;&plus;&space;\nu\nabla^2\omega" title="\frac{\partial\omega}{\partial t} = -[\omega, \psi] + \nu\nabla^2\omega" /></a>\
+where the Poisson bracket has the usual definition\
+<a href="https://www.codecogs.com/eqnedit.php?latex=[\omega,\psi]&space;=&space;\frac{\partial\omega}{\partial&space;x}\frac{\partial\psi}{\partial&space;y}&space;-&space;\frac{\partial\omega}{\partial&space;y}\frac{\partial\psi}{\partial&space;x}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?[\omega,\psi]&space;=&space;\frac{\partial\omega}{\partial&space;x}\frac{\partial\psi}{\partial&space;y}&space;-&space;\frac{\partial\omega}{\partial&space;y}\frac{\partial\psi}{\partial&space;x}" title="[\omega,\psi] = \frac{\partial\omega}{\partial x}\frac{\partial\psi}{\partial y} - \frac{\partial\omega}{\partial y}\frac{\partial\psi}{\partial x}" /></a>\
 along with the Poisson equation\
 <a href="https://www.codecogs.com/eqnedit.php?latex=\nabla^2\psi&space;=&space;-\omega" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\nabla^2\psi&space;=&space;-\omega" title="\nabla^2\psi = -\omega" /></a>
 
