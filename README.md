@@ -35,7 +35,7 @@ along with the Poisson equation\
 <a href="https://www.codecogs.com/eqnedit.php?latex=\nabla^2\psi&space;=&space;-\omega" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\nabla^2\psi&space;=&space;-\omega" title="\nabla^2\psi = -\omega" /></a>
 
 ## Dedalus Setup
-Import dedalus and setup Fourier basis in x and y directions. Currently, dedalus allows to use a Chebyshev basis in one of the directions (which can be useful in problems with flow in a single direction like a KH instability problem, for example).
+Import dedalus and setup Fourier basis in x and y directions. Currently, dedalus allows to use a Chebyshev basis in one of the directions (which can be useful in problems with flow in a single direction like a KH instability problem, for example). This code was adopted to our problem with the help of the extensive [documentation](https://dedalus-project.readthedocs.io/en/latest/index.html) which contains many [tutorials](https://dedalus-project.readthedocs.io/en/latest/pages/tutorials.html).
 ```
 # Import Statements
 import numpy as np
