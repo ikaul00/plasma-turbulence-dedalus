@@ -114,5 +114,5 @@ p.set_array(np.ravel(omega['g'][:-1,:-1].T))
 display.clear_output()                                        
 plt.savefig('plot_hydro.png')
 ```
-At the end we get the following plot
+At the end we get the following plot\
 ![hydro_result](plot_hydro.png)
