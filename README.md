@@ -119,7 +119,7 @@ At the end we get the following plot\
 
 ## Numerical Result
 <p float="left">
-  <img src="k_6_s_10_snap1-1.png" width="400" />
-  <img src="k_6_s_10_snap2-1.png" width="400" /> 
-  <img src="k_6_s_10_snap3-1.png" width="400" />
+  <img src="k_6_s_10_snap1-1.png" width="350" />
+  <img src="k_6_s_10_snap2-1.png" width="350" /> 
+  <img src="k_6_s_10_snap3-1.png" width="350" />
 </p>
