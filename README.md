@@ -118,4 +118,4 @@ At the end we get the following plot\
 ![hydro_result](plot_hydro.png)
 
 ## Numerical Result
-<img src="k_6_s_10_snap1-1.png" alt="drawing" width="200"/>
+<img src="k_6_s_10_snap1-1.png" alt="drawing" width="400"/>
