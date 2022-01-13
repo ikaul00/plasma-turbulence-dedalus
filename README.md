@@ -180,6 +180,36 @@ and the shielding factor comes in to the Poisson equation
 
 <img src="https://latex.codecogs.com/svg.image?\xi&space;=&space;\nabla^2\psi&space;&plus;&space;(s-1)\nabla^2\langle\psi\rangle-&space;(1-i\delta_0&space;\frac{\partial}{\partial&space;y})\psi&space;&plus;\langle\psi\rangle" title="\xi = \nabla^2\psi + (s-1)\nabla^2\langle\psi\rangle- (1-i\delta_0 \frac{\partial}{\partial y})\psi +\langle\psi\rangle" />
 
+where the angular brackets represent the y averaged quantity.
+THe code gets modified to
+```
+viscosity = 0 #1e-2
+k=6.0 #0.5
+s=10.0
+delta0 = 1.5
+alpha = 0.0 #0.04
+alphad = 1
+nud = 0.01
+problem = de.IVP(domain, variables=['omega','psi', 'u','v', 'shear_ZF', 'shear_DW', 'psi_DW'])
+problem.parameters['nu'] = viscosity
+problem.parameters['k'] = k
+problem.parameters['d0'] = delta0
+problem.parameters['alpha'] = alpha
+problem.parameters['Ly'] = Ly
+problem.parameters['Lx'] = Lx
+problem.parameters['alphad'] = alphad
+problem.parameters['nud'] = nud 
+problem.parameters['s'] = s                                                                                                                                                                                       
+problem.add_equation("dt(omega) -nu*dx(dx(omega)) - nu*dy(dy(omega)) + alpha*omega - k*dy(psi) +(omega-integ((omega),'y')/Ly)*alphad - nud*(dx(dx(omega-integ((omega),'y')/Ly))+ dy(dy(omega-integ((omega),'y')/Ly)))= dy(omega)*dx(psi) - dx(omega)*dy(psi)")
+problem.add_equation("omega-dx(dx(psi)) -(s-1)*( dx(dx(integ((psi),'y')/Ly))+ dy(dy(integ((psi),'y')/Ly)) )- dy(dy(psi)) + psi - d0*dy(psi) - integ((psi),'y')/Ly= 0", condition="(nx != 0) or (ny != 0)")
+problem.add_equation("psi= 0", condition="(nx == 0) and (ny == 0)")
+problem.add_equation("u + dy(psi)=0")
+problem.add_equation("v - dx(psi) = 0")
+problem.add_equation("shear_ZF= (integ((dx(dx((integ((psi),'y')/Ly)))**2),'x')/Lx)**(1/2)")
+problem.add_equation("psi_DW = psi - integ((psi),'y')/Ly")
+problem.add_equation("shear_DW = (        integ(   (   (dx(dy(psi)))**2 + (1/2)*(dx(dx(psi_DW)) - dy(dy(psi_DW)))**2  )  ,'x'      )/Lx        )**(1/2)")
+
+```
 ## Numerical Result
 We show the ion guiding center density evolution of the HME first
 <p float="left">
