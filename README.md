@@ -213,9 +213,9 @@ problem.add_equation("shear_DW = (        integ(   (   (dx(dy(psi)))**2 + (1/2)*
 ## Numerical Result
 We show the ion guiding center density evolution of the HME first
 <p float="left">
-  <img src="HME_k_5.5_snap1-1.png" width="330" />
-  <img src="HME_k_5.5_snap2-1.png" width="330" /> 
-  <img src="HME_k_5.5_snap3-1.png" width="330" />
+  <img src="HME_k_5.5_snap1-1.png" width="320" />
+  <img src="HME_k_5.5_snap2-1.png" width="320" /> 
+  <img src="HME_k_5.5_snap3-1.png" width="320" />
 </p>
 
 
