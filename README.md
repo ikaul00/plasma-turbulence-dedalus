@@ -221,7 +221,14 @@ We show the ion guiding center density evolution of the HME first
 
 The following plots show the ion guiding center density snapshots of the evolution of the MTHE with neoclassical shielding.
 <p float="left">
-  <img src="k_6_s_10_snap1-1.png" width="330" />
-  <img src="k_6_s_10_snap2-1.png" width="330" /> 
-  <img src="k_6_s_10_snap3-1.png" width="330" />
+  <img src="k_7_s_1_snap1-1.png" width="320" />
+  <img src="k_7_s_1_snap2-1.png" width="320" /> 
+  <img src="k_7_s_1_snap3-1.png" width="320" />
 </p> 
+
+<p float="left">
+  <img src="k_7_s_10_snap1-1.png" width="320" />
+  <img src="k_7_s_10_snap2-1.png" width="320" /> 
+  <img src="k_7_s_10_snap3-1.png" width="320" />
+</p> 
+
