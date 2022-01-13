@@ -217,25 +217,25 @@ problem.add_equation("shear_DW = (        integ(   (   (dx(dy(psi)))**2 + (1/2)*
 ## Numerical Result
 We show the ion guiding center density evolution of the HME first
 <p float="left">
-  <img src="HME_k_5.5_snap1-1.png" width="320" />
-  <img src="HME_k_5.5_snap2-1.png" width="320" /> 
-  <img src="HME_k_5.5_snap3-1.png" width="320" />
+  <img src="HME_k_5.5_snap1-1.png" width="330" />
+  <img src="HME_k_5.5_snap2-1.png" width="330" /> 
+  <img src="HME_k_5.5_snap3-1.png" width="330" />
 </p>
 
 
 The following plots show the ion guiding center density snapshots of the evolution of the MTHE with neoclassical shielding. Here we have k=7, s=1
 <p float="left">
-  <img src="k_7_s_1_snap1-1.png" width="320" />
-  <img src="k_7_s_1_snap2-1.png" width="320" /> 
-  <img src="k_7_s_1_snap3-1.png" width="320" />
+  <img src="k_7_s_1_snap1-1.png" width="330" />
+  <img src="k_7_s_1_snap2-1.png" width="330" /> 
+  <img src="k_7_s_1_snap3-1.png" width="330" />
 </p> 
 
 Here we have k=7, s=10
 
 <p float="left">
-  <img src="k_7_s_10_snap1-1.png" width="320" />
-  <img src="k_7_s_10_snap2-1.png" width="320" /> 
-  <img src="k_7_s_10_snap3-1.png" width="320" />
+  <img src="k_7_s_10_snap1-1.png" width="330" />
+  <img src="k_7_s_10_snap2-1.png" width="330" /> 
+  <img src="k_7_s_10_snap3-1.png" width="330" />
 </p> 
 These show the clear difference in varying the shielding parameter while keeoing the denity gradient parameter fixed.
  
