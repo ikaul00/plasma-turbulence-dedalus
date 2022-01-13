@@ -8,7 +8,7 @@ Step 1: Install the FFTW libraries
 ```
 !apt-get install libfftw3-dev
 !apt-get install libfftw3-mpi-dev
-```
+``` 
 Step 2: Set paths for Dedalus installation on colab
 ```
 import os
