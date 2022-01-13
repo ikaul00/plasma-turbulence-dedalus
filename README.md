@@ -118,6 +118,8 @@ At the end we get the following plot\
 ![hydro_result](plot_hydro.png)
 
 ## Numerical Result
+
+The following plots show the ion guiding center density snapshots of the evolution of the MTHE with neoclassical shielding.
 <p float="left">
   <img src="k_6_s_10_snap1-1.png" width="330" />
   <img src="k_6_s_10_snap2-1.png" width="330" /> 
