@@ -119,6 +119,46 @@ plt.savefig('plot_hydro.png')
 At the end we get the following plot\
 ![hydro_result](plot_hydro.png)
 
+This was a test problem to check if our code worked properly. You could do some more diagnostics such as plotting the amplitude or energy to check they remain invariant. Now we move on to the Hasegawa-Mima equation (HME). The HME adds in a y drift term to the usual fluid equations.
+<img src="https://latex.codecogs.com/svg.image?\frac{\partial\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\xi&space;-&space;\kappa\frac{\partial\psi}{\partial&space;y}=0" title="\frac{\partial\xi}{\partial t} + \textbf{v}\cdot\xi - \kappa\frac{\partial\psi}{\partial y}=0" />
+along with a slight modification in the Poisson equation
+<img src="https://latex.codecogs.com/svg.image?\xi&space;=&space;\nabla^2\psi&space;-\psi" title="\xi = \nabla^2\psi -\psi" />
+We modify the code based on the new equations.
+```
+viscosity = 0
+k=5.5
+problem = de.IVP(domain, variables=['omega','psi','u','v', 'u2', 'v2'])                                                                                                                                                                                        
+problem.parameters['nu'] = viscosity
+problem.parameters['k'] = k
+problem.add_equation("dt(omega) -nu*dx(dx(omega)) - nu*dy(dy(omega)) - k*dy(psi)= dy(omega)*dx(psi) - dx(omega)*dy(psi)")
+problem.add_equation("omega-dx(dx(psi)) - dy(dy(psi)) + psi = 0", condition="(nx != 0) or (ny != 0)")
+problem.add_equation("psi= 0", condition="(nx == 0) and (ny == 0)")
+problem.add_equation("u + dy(psi)=0")
+problem.add_equation("v - dx(psi) = 0")
+problem.add_equation("u2 + dy(u) = 0")
+problem.add_equation("v2 - dx(v) = 0")
+```
+
+Similarly for the Terry-Horton Eqaution (THE) we introduce the modifications
+```
+viscosity = 0
+k=5.5
+delta0 = 1.5
+alpha = 0.05
+problem = de.IVP(domain, variables=['omega','psi', 'u','v', 'u2', 'v2'])                                                    
+problem.parameters['nu'] = viscosity
+problem.parameters['k'] = k
+problem.parameters['d0'] = delta0
+problem.parameters['alpha'] = alpha
+               
+problem.add_equation("dt(omega) -nu*dx(dx(omega)) - nu*dy(dy(omega)) + alpha*omega - k*dy(psi)= dy(omega)*dx(psi) - dx(omega)*dy(psi)")
+problem.add_equation("omega-dx(dx(psi)) - dy(dy(psi)) + psi - d0*dy(psi)= 0", condition="(nx != 0) or (ny != 0)")
+problem.add_equation("psi= 0", condition="(nx == 0) and (ny == 0)")
+problem.add_equation("u + dy(psi)=0")
+problem.add_equation("v - dx(psi) = 0")
+problem.add_equation("u2 + dy(u) = 0")
+problem.add_equation("v2 - dx(v) = 0")
+```
 ## Numerical Result
 We show the ion guiding center density evolution of the HME first
 <p float="left">
