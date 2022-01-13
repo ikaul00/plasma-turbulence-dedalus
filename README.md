@@ -120,9 +120,13 @@ At the end we get the following plot\
 ![hydro_result](plot_hydro.png)
 
 This was a test problem to check if our code worked properly. You could do some more diagnostics such as plotting the amplitude or energy to check they remain invariant. Now we move on to the Hasegawa-Mima equation (HME). The HME adds in a y drift term to the usual fluid equations.
-<img src="https://latex.codecogs.com/svg.image?\frac{\partial\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\xi&space;-&space;\kappa\frac{\partial\psi}{\partial&space;y}=0" title="\frac{\partial\xi}{\partial t} + \textbf{v}\cdot\xi - \kappa\frac{\partial\psi}{\partial y}=0" />
+
+<img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\nabla\xi&space;-&space;\kappa\frac{\partial&space;\xi}{\partial&space;y}&space;=&space;0" title="\frac{\partial \xi}{\partial t} + \textbf{v}\cdot\nabla\xi - \kappa\frac{\partial \xi}{\partial y} = 0" />
+
 along with a slight modification in the Poisson equation
+
 <img src="https://latex.codecogs.com/svg.image?\xi&space;=&space;\nabla^2\psi&space;-\psi" title="\xi = \nabla^2\psi -\psi" />
+
 We modify the code based on the new equations.
 ```
 viscosity = 0
@@ -140,6 +144,14 @@ problem.add_equation("v2 - dx(v) = 0")
 ```
 
 Similarly for the Terry-Horton Eqaution (THE) we introduce the modifications
+
+<img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\nabla\xi&space;-&space;\kappa\frac{\partial&space;\xi}{\partial&space;y}&space;&plus;&space;\hat{D}\xi=&space;0" title="\frac{\partial \xi}{\partial t} + \textbf{v}\cdot\nabla\xi - \kappa\frac{\partial \xi}{\partial y} + \hat{D}\xi= 0" />
+
+and more importantly in the Poisson equation
+
+<img src="https://latex.codecogs.com/svg.image?\xi&space;=&space;\nabla^2\psi&space;-&space;(1-i\hat{\delta})\psi" title="\xi = \nabla^2\psi - (1-i\hat{\delta})\psi" />
+
+
 ```
 viscosity = 0
 k=5.5
@@ -159,6 +171,15 @@ problem.add_equation("v - dx(psi) = 0")
 problem.add_equation("u2 + dy(u) = 0")
 problem.add_equation("v2 - dx(v) = 0")
 ```
+
+Now we describe our modification to the THE, the MTHE along with newoclassical shielding. The evolution equation becomes
+
+<img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\nabla\xi&space;-&space;\kappa\frac{\partial&space;\xi}{\partial&space;y}&space;&plus;&space;\hat{D}(\xi&space;-&space;\langle\xi\rangle)&space;=&space;0" title="\frac{\partial \xi}{\partial t} + \textbf{v}\cdot\nabla\xi - \kappa\frac{\partial \xi}{\partial y} + \hat{D}(\xi - \langle\xi\rangle) = 0" />
+
+and the shielding factor comes in to the Poisson equation
+
+<img src="https://latex.codecogs.com/svg.image?\xi&space;=&space;\nabla^2\psi&space;&plus;&space;(s-1)\nabla^2\langle\psi\rangle-&space;(1-i\delta_0&space;\frac{\partial}{\partial&space;y})\psi&space;&plus;\langle\psi\rangle" title="\xi = \nabla^2\psi + (s-1)\nabla^2\langle\psi\rangle- (1-i\delta_0 \frac{\partial}{\partial y})\psi +\langle\psi\rangle" />
+
 ## Numerical Result
 We show the ion guiding center density evolution of the HME first
 <p float="left">
