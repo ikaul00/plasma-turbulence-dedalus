@@ -232,3 +232,4 @@ The following plots show the ion guiding center density snapshots of the evoluti
   <img src="k_7_s_10_snap3-1.png" width="320" />
 </p> 
 
+ 
