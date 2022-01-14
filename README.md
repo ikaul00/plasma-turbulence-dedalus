@@ -238,4 +238,4 @@ Here we have k=7, s=10
   <img src="k_7_s_10_snap3-1.png" width="330" />
 </p> 
 These show the clear difference in varying the shielding parameter while keeoing the denity gradient parameter fixed.
- 
+  
