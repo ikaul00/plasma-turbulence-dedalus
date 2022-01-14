@@ -176,7 +176,7 @@ problem.add_equation("u2 + dy(u) = 0")
 problem.add_equation("v2 - dx(v) = 0")
 ```
 
-Now we describe our modification to the THE, the MTHE along with newoclassical shielding. The evolution equation becomes
+Now we describe our modification to the THE, the MTHE along with neoclassical shielding. The evolution equation becomes
 
 <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\nabla\xi&space;-&space;\kappa\frac{\partial&space;\xi}{\partial&space;y}&space;&plus;&space;\hat{D}(\xi&space;-&space;\langle\xi\rangle)&space;=&space;0" title="\frac{\partial \xi}{\partial t} + \textbf{v}\cdot\nabla\xi - \kappa\frac{\partial \xi}{\partial y} + \hat{D}(\xi - \langle\xi\rangle) = 0" />
 
