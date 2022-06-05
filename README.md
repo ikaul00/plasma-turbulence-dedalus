@@ -121,7 +121,10 @@ display.clear_output()
 plt.savefig('plot_hydro.png')
 ```
 At the end we get the following plot\
-![hydro_result](plot_hydro.png)
+<p float="left">
+  <img src="plot_hydro.png" width="450" />
+  
+</p> 
 
 This was a test problem to check if our code worked properly. You could do some more diagnostics such as plotting the amplitude or energy to check they remain invariant. 
 
