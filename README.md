@@ -123,7 +123,10 @@ plt.savefig('plot_hydro.png')
 At the end we get the following plot\
 ![hydro_result](plot_hydro.png)
 
-This was a test problem to check if our code worked properly. You could do some more diagnostics such as plotting the amplitude or energy to check they remain invariant. Now we move on to the Hasegawa-Mima equation (HME). The HME adds in a y drift term to the usual fluid equations.
+This was a test problem to check if our code worked properly. You could do some more diagnostics such as plotting the amplitude or energy to check they remain invariant. 
+
+### Test 2
+Now we move on to the Hasegawa-Mima equation (HME). The HME adds in a y drift term to the usual fluid equations.
 
 <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\nabla\xi&space;-&space;\kappa\frac{\partial&space;\xi}{\partial&space;y}&space;=&space;0" title="\frac{\partial \xi}{\partial t} + \textbf{v}\cdot\nabla\xi - \kappa\frac{\partial \xi}{\partial y} = 0" />
 
