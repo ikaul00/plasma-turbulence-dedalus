@@ -116,9 +116,17 @@ while solver.ok:
 
 end_time = time.time()
 
-p.set_array(np.ravel(omega['g'][:-1,:-1].T))
-display.clear_output()                                        
-plt.savefig('plot_hydro.png')
+fig, ax = plt.subplots(figsize=(6,6))
+#ax.matshow(omega['g'].T)
+plt.imshow(omega['g'].T, origin='lower',cmap='viridis', extent = [-1,1,-1,1])
+plt.gca().xaxis.tick_bottom()
+#display.display(plt.gcf())                                                                                    
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('t=25')
+#plt.colorbar()
+plt.savefig('plot_hydro.png', bbox_inches='tight', dpi = 200)
+
 ```
 At the end we get the following plot\
 <p float="left">
