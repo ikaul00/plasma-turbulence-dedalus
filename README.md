@@ -36,7 +36,7 @@ where the Poisson bracket has the usual definition
 
 <img src="https://latex.codecogs.com/svg.image?[\omega,\psi]&space;=&space;\frac{\partial&space;\omega}{\partial&space;x}\frac{\partial&space;\psi}{\partial&space;y}&space;-&space;\frac{\partial&space;\omega}{\partial&space;y}\frac{\partial&space;\psi}{\partial&space;x}&space;" title="[\omega,\psi] = \frac{\partial \omega}{\partial x}\frac{\partial \psi}{\partial y} - \frac{\partial \omega}{\partial y}\frac{\partial \psi}{\partial x} " />
 
-along with the Poisson equation
+along with the Poisson equation 
 
 <img src="https://latex.codecogs.com/svg.image?\nabla^2\psi&space;=-\omega" title="\nabla^2\psi =-\omega" />
 
