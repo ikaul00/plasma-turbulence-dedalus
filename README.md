@@ -144,7 +144,7 @@ And finally plot the energy and enstrophy evolution. These show that our code wo
   <img src="energy_cons_dt.png" width="330" />
   <img src="enstrophy_cons_dt.png" width="330" /> 
 </p>
-### Test 2
+## Test Case 2
 Now we move on to the Hasegawa-Mima equation (HME). The HME adds in a y drift term to the usual fluid equations.
 
 <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\nabla\xi&space;-&space;\kappa\frac{\partial&space;\xi}{\partial&space;y}&space;=&space;0" title="\frac{\partial \xi}{\partial t} + \textbf{v}\cdot\nabla\xi - \kappa\frac{\partial \xi}{\partial y} = 0" />
@@ -168,7 +168,13 @@ problem.add_equation("v - dx(psi) = 0")
 problem.add_equation("u2 + dy(u) = 0")
 problem.add_equation("v2 - dx(v) = 0")
 ```
-
+Here, we plot the 'vorticity' analog from the hydro case which is called the ion guiding center density in plasma. These show the ion guiding center density evolution with time.
+<p float="left">
+  <img src="HME_k_5.5_snap1-1.png" width="330" />
+  <img src="HME_k_5.5_snap2-1.png" width="330" /> 
+  <img src="HME_k_5.5_snap3-1.png" width="330" />
+</p>
+## Our Problem: MTHE + neoclassical shielding
 Similarly for the Terry-Horton Eqaution (THE) we introduce the modifications
 
 <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\nabla\xi&space;-&space;\kappa\frac{\partial&space;\xi}{\partial&space;y}&space;&plus;&space;\hat{D}\xi=&space;0" title="\frac{\partial \xi}{\partial t} + \textbf{v}\cdot\nabla\xi - \kappa\frac{\partial \xi}{\partial y} + \hat{D}\xi= 0" />
@@ -237,12 +243,7 @@ problem.add_equation("shear_DW = (        integ(   (   (dx(dy(psi)))**2 + (1/2)*
 
 ```
 ## Numerical Result
-We show the ion guiding center density evolution of the HME first
-<p float="left">
-  <img src="HME_k_5.5_snap1-1.png" width="330" />
-  <img src="HME_k_5.5_snap2-1.png" width="330" /> 
-  <img src="HME_k_5.5_snap3-1.png" width="330" />
-</p>
+
 
 
 The following plots show the ion guiding center density snapshots of the evolution of the MTHE with neoclassical shielding. Here we have k=7, s=1
