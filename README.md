@@ -74,68 +74,76 @@ Next, specify time integrator and build the solver.
 ts = de.timesteppers.RK443
 solver =  problem.build_solver(ts)
 ```
-Now we initialize our gaussian monopoles
+Now we initialize our gaussian monopoles. As a test we also want to plot the energy and enstrophy evolution, which are initialized here.
 ```
-x = domain.grid(0)
-y = domain.grid(1)
-omega = solver.state['omega']
-psi = solver.state['psi']
-modv = solver.state['modv']
-# Intializing sigma and mu                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+# Intializing sigma and mu                                                                                                                                                                                                                          
 sigma = 1
 mu1 = 0.25
 mu2=-0.25
 
-# Initializing Gaussian monopoles on omega        
+# Initializing Gaussian monopoles on omega                                                                                                                                                                                                                      
 dst1 = (x-mu1)**2 + (y)**2
 dst2 = (x-mu2)**2 + (y)**2
 omega['g'] = np.exp(-(dst1/(sigma**2 /20))) + np.exp(-(dst2 / (sigma**2 /20)))
+#omega.differentiate('y', out = omegay)
 
-solver.stop_sim_time = 50.01
+solver.stop_sim_time = 25.01
 solver.stop_wall_time = np.inf
-solver.stop_iteration = np.inf                                                    
+solver.stop_iteration = np.inf
+
 dt = 0.01
+
+# Enstrophy/Energy analysis, initialize here
+enstrophy_arr = []
+energy_arr = []
+time_arr = []
+enstrophy_arr.append(np.sum(np.array(omega['g'])*np.array(omega['g'])))
+energy_arr.append(np.sum(np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g'])))
+
+
 ```
-Finally, plot the initial condition and evolve the system
-```
-# Make plot of scalar field 
+
+Finally, evolve the system
+``` 
 x = domain.grid(0,scales=domain.dealias)
 y = domain.grid(1,scales=domain.dealias)
-xm, ym = np.meshgrid(x,y)
-fig, axis = plt.subplots(figsize=(8,8))
-p = axis.pcolormesh(xm, ym, omega['g'].T, cmap='viridis'); # RdBu_r
-
-# Main loop
+start_time = time.time()
+t = 0
 while solver.ok:
+    #dt = cfl.compute_dt()
     solver.step(dt)
     if solver.iteration % 150 == 0:
         #print(omega['g'])
-        # Update plot of scalar field 
-        p.set_array(np.ravel(omega['g'][:-1,:-1].T))
-        display.clear_output()                                                                                                                                             display.display(plt.gcf())  
-
-end_time = time.time()
-
+        # Update plot of scalar field                                                                                                                                                                                      
+        enstrophy_arr.append(np.sum(np.array(omega['g'])*np.array(omega['g'])))
+        energy_arr.append(np.sum(np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g'])))
+        time_arr.append(t)
+    t = t+dt
+```
+To plot the final snapshot of vorticity, use a simple plotting script
+```
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 fig, ax = plt.subplots(figsize=(6,6))
-#ax.matshow(omega['g'].T)
-plt.imshow(omega['g'].T, origin='lower',cmap='viridis', extent = [-1,1,-1,1])
+div = make_axes_locatable(ax)
+cax = div.append_axes('right', '5%', '5%')
+img = ax.imshow(omega['g'].T, origin='lower',cmap='viridis', extent = [-1,1,-1,1])
+tx = ax.set_title('t = 25')
 plt.gca().xaxis.tick_bottom()
-#display.display(plt.gcf())                                                                                    
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title('t=25')
-#plt.colorbar()
+fig.colorbar(img, cax = cax)
 plt.savefig('plot_hydro.png', bbox_inches='tight', dpi = 200)
-
 ```
-At the end we get the following plot\
+After which we finally get the following plot
 <p float="left">
   <img src="plot_hydro.png" width="450" />
-  
 </p> 
 
-This was a test problem to check if our code worked properly. You could do some more diagnostics such as plotting the amplitude or energy to check they remain invariant. 
-
+And finally plot the energy and enstrophy evolution. These show that our code worked well, since the change in both of these quantities is very small. To further check your code, a smaller dt should yield better conservation properties, i.e. the change in energy and enstrophy should be smaller for smaller dt.
+<p float="left">
+  <img src="energy_cons_dt.png" width="330" />
+  <img src="enstrophy_cons_dt.png" width="330" /> 
+</p>
 ### Test 2
 Now we move on to the Hasegawa-Mima equation (HME). The HME adds in a y drift term to the usual fluid equations.
 
