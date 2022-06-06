@@ -120,7 +120,7 @@ while solver.ok:
         time_arr.append(t)
     t = t+dt
 ```
-To plot the final snapshot of vorticity, use a simple plotting script
+This took me around 2 minutes to run. You can change the stop time (currently at t=25) to something longer if you want. To plot the final snapshot of vorticity, use a simple plotting script
 ```
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 fig, ax = plt.subplots(figsize=(6,6))
@@ -134,7 +134,7 @@ plt.ylabel('y')
 fig.colorbar(img, cax = cax)
 plt.savefig('plot_hydro.png', bbox_inches='tight', dpi = 200)
 ```
-After which we finally get the following plot
+After which we finally get the following vorticity snapshot
 <p float="left">
   <img src="plot_hydro.png" width="450" />
 </p> 
@@ -168,18 +168,114 @@ problem.add_equation("v - dx(psi) = 0")
 problem.add_equation("u2 + dy(u) = 0")
 problem.add_equation("v2 - dx(v) = 0")
 ```
+
+```
+x = domain.grid(0, scales=domain.dealias)
+y = domain.grid(1, scales=domain.dealias)
+omega = solver.state['omega']
+omega.set_scales(scales=domain.dealias)
+psi = solver.state['psi']
+psi.set_scales(scales=domain.dealias)
+u = solver.state['u']
+u.set_scales(scales=domain.dealias)                                                                      
+v = solver.state['v'] 
+v.set_scales(scales=domain.dealias)
+u2 = solver.state['u2']                
+u2.set_scales(scales=domain.dealias)                                                                 
+v2 = solver.state['v2'] 
+v2.set_scales(scales=domain.dealias)
+```
+Here we write the initial conditions - it does not really matter what they are, since for a long time the system loses memory of initial conditions and evolves the way it would regardless. Here we initialize a grid of monopoles at the center with positive and negative vorticities.
+```
+# Intializing sigma and mu                                                       
+sigma = 1
+mu1 = 1
+mu2=-1
+
+# Initializing Gaussian monopoles on omega                                                        
+dst1 = (x-mu1)**2 + (y+mu1)**2
+dst2 = (x-mu1)**2 + (y-mu1)**2
+dst3 = (x+mu1+0.5)**2 + (y+mu1)**2
+dst4 = (x+mu1)**2 + (y-mu1)**2
+dst5 = (x-3*mu1)**2 + (y+3*mu1)**2
+dst6 = (x-3*mu1)**2 + (y-3*mu1)**2
+dst7 = (x+3*mu1+0.5)**2 + (y+3*mu1)**2
+dst8 = (x+3*mu1)**2 + (y-3*mu1)**2
+dst9 = (x-3*mu1)**2 + (y+mu1)**2
+dst10 = (x-mu1)**2 + (y-3*mu1)**2
+dst11 = (x+mu1+0.5)**2 + (y+3*mu1)**2
+dst12 = (x+mu1)**2 + (y-3*mu1)**2
+dst13 = (x-mu1)**2 + (y+3*mu1)**2
+dst14 = (x-3*mu1)**2 + (y-mu1)**2
+dst15 = (x+3*mu1+0.5)**2 + (y+mu1)**2
+dst16 = (x+3*mu1)**2 + (y-mu1)**2
+omega['g'] = (1/10)*(-np.exp(-(dst1/(sigma**2))) + np.exp(-(dst2 / (sigma**2))) +np.exp(-(dst3/(sigma**2))) - np.exp(-(dst4/(sigma**2))))
+omega['g'] = omega['g']+(1/10)*(-np.exp(-(dst5/(sigma**2))) + np.exp(-(dst6 / (sigma**2))) -np.exp(-(dst7/(sigma**2))) - np.exp(-(dst8/(sigma**2))))
+omega['g'] = omega['g']+(1/10)*(np.exp(-(dst9/(sigma**2))) - np.exp(-(dst10 / (sigma**2))) +np.exp(-(dst11/(sigma**2))) - np.exp(-(dst12/(sigma**2))))
+omega['g'] = omega['g']+(1/10)*(-np.exp(-(dst13/(sigma**2))) + np.exp(-(dst14 / (sigma**2))) +np.exp(-(dst15/(sigma**2))) + np.exp(-(dst16/(sigma**2))))
+
+omega_list = []
+omega_list.append(np.array(omega['g'].T))
+
+fig, ax = plt.subplots(figsize=(10,8))
+img = ax.imshow(omega['g'].T, extent=[-10*np.pi,10*np.pi,-10*np.pi,10*np.pi])
+fig.colorbar(img)
+
+solver.stop_sim_time = 200.01
+solver.stop_wall_time = np.inf
+solver.stop_iteration = np.inf
+
+# Initial timestep
+dt = 0.01
+
+# CFL
+CFL = flow_tools.CFL(solver, initial_dt=dt, cadence=10, safety=0.5,
+                     max_change=1.5, min_change=0.5, max_dt=0.4/k, threshold=0.05)
+CFL.add_velocities(('u', 'v'))
+
+time_snaps = np.linspace(0, 200.01, num=1500)
+```
+
+And now we evolve the equations, while saving ion guiding center density, energy and enstrophy snapshots along the evolution.
+```
+# Enstrophy/Energy analysis
+enstrophy_arr = []
+energy_arr = []
+time_arr = list(time_snaps)
+energy_arr.append(np.sum(np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g']) + np.array(psi['g'])*np.array(psi['g'])))
+enstrophy_arr.append(np.sum((np.array(u2['g'])+ np.array(v2['g']))**2 + np.array(u['g'])**2 + np.array(v['g'])**2))
+
+dt_arr = []
+t = 0
+count = 0
+while solver.ok:
+    #dt = CFL.compute_dt()
+    dt=0.05
+    solver.step(dt)
+    #if solver.iteration % 50 == 0:
+    if np.abs(t-time_snaps[count])<  0.4/k:
+        omega_new = np.array(omega['g'].T)
+        omega_list.append(omega_new)                                                                                                                               energy_arr.append(np.sum(np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g']) + np.array(psi['g'])*np.array(psi['g'])))
+        enstrophy_arr.append(np.sum((np.array(u2['g'])+ np.array(v2['g']))*(np.array(u2['g']) + np.array(v2['g'])) + np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g'])))
+        count = count+1
+    t = t+dt
+
+```
+
 Here, we plot the 'vorticity' analog from the hydro case which is called the ion guiding center density in plasma. These show the ion guiding center density evolution with time.
 <p float="left">
   <img src="HME_k_5.5_snap1-1.png" width="330" />
   <img src="HME_k_5.5_snap2-1.png" width="330" /> 
   <img src="HME_k_5.5_snap3-1.png" width="330" />
 </p>
+
+
 ## Our Problem: MTHE + neoclassical shielding
 Similarly for the Terry-Horton Eqaution (THE) we introduce the modifications
 
 <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\nabla\xi&space;-&space;\kappa\frac{\partial&space;\xi}{\partial&space;y}&space;&plus;&space;\hat{D}\xi=&space;0" title="\frac{\partial \xi}{\partial t} + \textbf{v}\cdot\nabla\xi - \kappa\frac{\partial \xi}{\partial y} + \hat{D}\xi= 0" />
 
-and more importantly in the Poisson equation
+and more importantly a phase shift in the Poisson equation
 
 <img src="https://latex.codecogs.com/svg.image?\xi&space;=&space;\nabla^2\psi&space;-&space;(1-i\hat{\delta})\psi" title="\xi = \nabla^2\psi - (1-i\hat{\delta})\psi" />
 
@@ -202,9 +298,12 @@ problem.add_equation("u + dy(psi)=0")
 problem.add_equation("v - dx(psi) = 0")
 problem.add_equation("u2 + dy(u) = 0")
 problem.add_equation("v2 - dx(v) = 0")
+
+ts = de.timesteppers.RK443
+solver =  problem.build_solver(ts)
 ```
 
-Now we describe our modification to the THE, the MTHE along with neoclassical shielding. The evolution equation becomes
+The crux of the project is here. Previous work does not take into account the so called shielding effect which is similar to the one in chemistry - the EM force between protons and the farther electrons gets shielded due to the inner shelll electrons. A similar affect happens in tokamak plasmas. We describe our modification to the THE, the MTHE, along with neoclassical shielding. The evolution equation becomes
 
 <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\nabla\xi&space;-&space;\kappa\frac{\partial&space;\xi}{\partial&space;y}&space;&plus;&space;\hat{D}(\xi&space;-&space;\langle\xi\rangle)&space;=&space;0" title="\frac{\partial \xi}{\partial t} + \textbf{v}\cdot\nabla\xi - \kappa\frac{\partial \xi}{\partial y} + \hat{D}(\xi - \langle\xi\rangle) = 0" />
 
@@ -212,8 +311,7 @@ and the shielding factor comes in to the Poisson equation
 
 <img src="https://latex.codecogs.com/svg.image?\xi&space;=&space;\nabla^2\psi&space;&plus;&space;(s-1)\nabla^2\langle\psi\rangle-&space;(1-i\delta_0&space;\frac{\partial}{\partial&space;y})\psi&space;&plus;\langle\psi\rangle" title="\xi = \nabla^2\psi + (s-1)\nabla^2\langle\psi\rangle- (1-i\delta_0 \frac{\partial}{\partial y})\psi +\langle\psi\rangle" />
 
-where the angular brackets represent the y averaged quantity.
-THe code gets modified to
+where the angular brackets represent the y averaged quantity. This averaging represnets the zonal flow contribution, since ZFs only occur in the y direction here. The code then gets modified to
 ```
 viscosity = 0 #1e-2
 k=6.0 #0.5
@@ -243,8 +341,6 @@ problem.add_equation("shear_DW = (        integ(   (   (dx(dy(psi)))**2 + (1/2)*
 
 ```
 ## Numerical Result
-
-
 
 The following plots show the ion guiding center density snapshots of the evolution of the MTHE with neoclassical shielding. Here we have k=7, s=1
 <p float="left">
