@@ -261,7 +261,8 @@ while solver.ok:
     #if solver.iteration % 50 == 0:
     if np.abs(t-time_snaps[count])<  0.4/k:
         omega_new = np.array(omega['g'].T)
-        omega_list.append(omega_new)                                                                                                                               energy_arr.append(np.sum(np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g']) + np.array(psi['g'])*np.array(psi['g'])))
+        omega_list.append(omega_new)                                                                                                                   
+        energy_arr.append(np.sum(np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g']) + np.array(psi['g'])*np.array(psi['g'])))
         enstrophy_arr.append(np.sum((np.array(u2['g'])+ np.array(v2['g']))*(np.array(u2['g']) + np.array(v2['g'])) + np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g'])))
         count = count+1
     t = t+dt
