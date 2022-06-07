@@ -23,7 +23,7 @@ Step 3: Install dedalus
 ```
 This should get dedalus up and running on Colab.
 
-## Test Case 1 
+## Test Case 1
 We will first show a test case for a vortex merger to check that our code works properly. Following this we will employ the plasma equations for turbulence. But first the basic hydrodynamc case. The 2D neutral fluid Navier Stokes equation(NSE) (in absence of gravity) is given as\
 <a href="https://www.codecogs.com/eqnedit.php?latex=\frac{\partial&space;\vec{v}}{\partial&space;t}&space;&plus;&space;(\vec{v}&space;\cdot&space;\nabla)\vec{v}&space;=&space;\nu&space;\nabla^2\vec{v}&space;-&space;\nabla&space;p" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\frac{\partial&space;\vec{v}}{\partial&space;t}&space;&plus;&space;(\vec{v}&space;\cdot&space;\nabla)\vec{v}&space;=&space;\nu&space;\nabla^2\vec{v}&space;-&space;\nabla&space;p" title="\frac{\partial \vec{v}}{\partial t} + (\vec{v} \cdot \nabla)\vec{v} = \nu \nabla^2\vec{v} - \nabla p" /></a>\
 We consider this case along with the incompressibility condition <a href="https://www.codecogs.com/eqnedit.php?latex=\nabla\cdot~\vec{v}~&space;=~&space;0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\nabla\cdot~\vec{v}~&space;=~&space;0" title="\nabla\cdot~\vec{v}~ =~ 0" /></a> and defining two new terms. the vorticity <a href="https://www.codecogs.com/eqnedit.php?latex=\omega&space;=&space;(\nabla\times\vec{v})\cdot\hat{z}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\omega&space;=&space;(\nabla\times\vec{v})\cdot\hat{z}" title="\omega = (\nabla\times\vec{v})\cdot\hat{z}" /></a> and the stream potential <a href="https://www.codecogs.com/eqnedit.php?latex=\psi:&space;\nabla\psi\times\hat{z}&space;=&space;\vec{v}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\psi:&space;\nabla\psi\times\hat{z}&space;=&space;\vec{v}" title="\psi: \nabla\psi\times\hat{z} = \vec{v}" /></a>
@@ -74,7 +74,13 @@ Next, specify time integrator and build the solver.
 ts = de.timesteppers.RK443
 solver =  problem.build_solver(ts)
 ```
-Now we initialize our gaussian monopoles. As a test we also want to plot the energy and enstrophy evolution, which are initialized here.
+Now we initialize our gaussian monopoles. As a test we also want to plot the energy and enstrophy evolution, which are initialized here. Ideally we want our code to conserve both of these quantities. The equation for enstrophy is
+
+<img src="https://latex.codecogs.com/svg.image?\inline&space;\Omega&space;=&space;\frac{1}{2}\int\,dx\int\,dy\,&space;\omega^2" title="https://latex.codecogs.com/svg.image?\inline \Omega = \frac{1}{2}\int\,dx\int\,dy\, \omega^2" />
+
+and energy
+
+<img src="https://latex.codecogs.com/svg.image?\inline&space;E&space;=&space;\frac{1}{2}\int\,&space;d\vec{x}\,&space;|\nabla\psi|^2" title="https://latex.codecogs.com/svg.image?\inline E = \frac{1}{2}\int\, d\vec{x}\, |\nabla\psi|^2" />
 ```
 # Intializing sigma and mu                                                                                                                                                                                                                          
 sigma = 1
