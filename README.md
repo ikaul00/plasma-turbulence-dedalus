@@ -142,7 +142,7 @@ plt.savefig('plot_hydro.png', bbox_inches='tight', dpi = 200)
 ```
 After which we finally get the following vorticity snapshot
 <p float="left">
-  <img src="plot_hydro.png" width="450" />
+  <img src="plot_hydro2.png" width="450" />
 </p> 
 
 And finally plot the energy and enstrophy evolution. These show that our code worked well, since the change in both of these quantities is very small. To further check your code, a smaller dt should yield better conservation properties, i.e. the change in energy and enstrophy should be smaller for smaller dt.
@@ -204,44 +204,27 @@ u2.set_scales(scales=domain.dealias)
 v2 = solver.state['v2'] 
 v2.set_scales(scales=domain.dealias)
 ```
-Here we write the initial conditions - it does not really matter what they are, since for a long time the system loses memory of initial conditions and evolves the way it would regardless. Here we initialize a grid of monopoles at the center with positive and negative vorticities.
+Here we write the initial conditions - it does not really matter what they are, since for a long time the system loses memory of initial conditions and evolves the way it would regardless. Here we initialize two monopoles as in the previous hydro case, but scaled accordingly since we now have a bigger box.
+
 ```
-# Intializing sigma and mu                                                       
-sigma = 1
-mu1 = 1
-mu2=-1
+# Intializing sigma and mu                                                                                                                                                                                                                            
+sigma = 6
+mu1 = 6
+mu2=-6
 
-# Initializing Gaussian monopoles on omega                                                        
-dst1 = (x-mu1)**2 + (y+mu1)**2
-dst2 = (x-mu1)**2 + (y-mu1)**2
-dst3 = (x+mu1+0.5)**2 + (y+mu1)**2
-dst4 = (x+mu1)**2 + (y-mu1)**2
-dst5 = (x-3*mu1)**2 + (y+3*mu1)**2
-dst6 = (x-3*mu1)**2 + (y-3*mu1)**2
-dst7 = (x+3*mu1+0.5)**2 + (y+3*mu1)**2
-dst8 = (x+3*mu1)**2 + (y-3*mu1)**2
-dst9 = (x-3*mu1)**2 + (y+mu1)**2
-dst10 = (x-mu1)**2 + (y-3*mu1)**2
-dst11 = (x+mu1+0.5)**2 + (y+3*mu1)**2
-dst12 = (x+mu1)**2 + (y-3*mu1)**2
-dst13 = (x-mu1)**2 + (y+3*mu1)**2
-dst14 = (x-3*mu1)**2 + (y-mu1)**2
-dst15 = (x+3*mu1+0.5)**2 + (y+mu1)**2
-dst16 = (x+3*mu1)**2 + (y-mu1)**2
-omega['g'] = (1/10)*(-np.exp(-(dst1/(sigma**2))) + np.exp(-(dst2 / (sigma**2))) +np.exp(-(dst3/(sigma**2))) - np.exp(-(dst4/(sigma**2))))
-omega['g'] = omega['g']+(1/10)*(-np.exp(-(dst5/(sigma**2))) + np.exp(-(dst6 / (sigma**2))) -np.exp(-(dst7/(sigma**2))) - np.exp(-(dst8/(sigma**2))))
-omega['g'] = omega['g']+(1/10)*(np.exp(-(dst9/(sigma**2))) - np.exp(-(dst10 / (sigma**2))) +np.exp(-(dst11/(sigma**2))) - np.exp(-(dst12/(sigma**2))))
-omega['g'] = omega['g']+(1/10)*(-np.exp(-(dst13/(sigma**2))) + np.exp(-(dst14 / (sigma**2))) +np.exp(-(dst15/(sigma**2))) + np.exp(-(dst16/(sigma**2))))
+# Initializing Gaussian monopoles on omega                                                                                                                                                                                                                      
+dst1 = (x-mu1)**2 + (y)**2
+dst2 = (x-mu2)**2 + (y)**2
+omega['g'] = 10*np.exp(-(dst1/(sigma**2 ))) + 10*np.exp(-(dst2 / (sigma**2 )))
 
-omega_list = []
+
 omega_list.append(np.array(omega['g'].T))
 
-# To visualize initial conditions
 fig, ax = plt.subplots(figsize=(10,8))
-img = ax.imshow(omega['g'].T, extent=[-10*np.pi,10*np.pi,-10*np.pi,10*np.pi], cmap = 'plasma')
+img = ax.imshow(omega['g'].T, extent=[-10*np.pi,10*np.pi,-10*np.pi,10*np.pi], cmap='plasma')
 fig.colorbar(img)
 
-solver.stop_sim_time = 200.01
+solver.stop_sim_time = 100.01
 solver.stop_wall_time = np.inf
 solver.stop_iteration = np.inf
 
@@ -282,6 +265,12 @@ Here, we plot the 'vorticity' analog from the hydro case which is called the ion
 <p float="left">
   <img src="HME_slice1.png" width="330" />
   <img src="HME_slice2.png" width="330" /> 
+</p>
+
+Below we show the energy and enstrophy conservation plots for the full run.
+<p float="left">
+  <img src="energy_cons_hme.png" width="330" />
+  <img src="enstrophy_cons_hme.png" width="330" /> 
 </p>
 
 
