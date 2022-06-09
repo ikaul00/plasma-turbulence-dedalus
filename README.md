@@ -267,14 +267,14 @@ Here, we plot the 'vorticity' analog from the hydro case which is called the ion
 </p>
 
 <p float="left">
-  <img src="HME_slice1.png" width="330" />
-  <img src="HME_slice2.png" width="330" /> 
+  <img src="HME_slice_1.png" width="330" />
+  <img src="HME_slice_2.png" width="330" /> 
 </p>
 
 Below we show the energy and enstrophy conservation plots for the full run. 
 <p float="left">
-  <img src="energy_cons_hme.png" width="330" />
-  <img src="enstrophy_cons_hme.png" width="330" /> 
+  <img src="energy_cons_hme.png" width="310" />
+  <img src="enstrophy_cons_hme.png" width="350" /> 
 </p>
 
 
