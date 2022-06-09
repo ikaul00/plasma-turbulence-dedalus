@@ -150,6 +150,7 @@ And finally plot the energy and enstrophy evolution. These show that our code wo
   <img src="energy_cons_dt.png" width="330" />
   <img src="enstrophy_cons_dt.png" width="330" /> 
 </p>
+
 ## Test Case 2
 Now we move on to the Hasegawa-Mima equation (HME). The HME adds in a y drift term to the usual fluid equations.
 
@@ -158,8 +159,20 @@ Now we move on to the Hasegawa-Mima equation (HME). The HME adds in a y drift te
 along with a slight modification in the Poisson equation
 
 <img src="https://latex.codecogs.com/svg.image?\xi&space;=&space;\nabla^2\psi&space;-\psi" title="\xi = \nabla^2\psi -\psi" />
+First, after all the import statements, we change the box size and resolution
 
-We modify the code based on the new equations.
+```
+# Aspect ratio 1                                                                                                                                                                                                                                      
+Lx, Ly = (20*np.pi, 20*np.pi)
+nx, ny = (128, 128)
+
+# Create bases and domain                                                                             
+x_basis = de.Fourier('x', nx, interval=(-Lx/2, Lx/2), dealias=3/2)
+y_basis = de.Fourier('y', ny, interval=(-Ly/2, Ly/2), dealias=3/2)                                                                                                                                                                                  
+domain = de.Domain([x_basis, y_basis], grid_dtype=np.float64)
+```
+
+We then modify the code based on the new equations.
 ```
 viscosity = 0
 k=5.5
@@ -223,8 +236,9 @@ omega['g'] = omega['g']+(1/10)*(-np.exp(-(dst13/(sigma**2))) + np.exp(-(dst14 / 
 omega_list = []
 omega_list.append(np.array(omega['g'].T))
 
+# To visualize initial conditions
 fig, ax = plt.subplots(figsize=(10,8))
-img = ax.imshow(omega['g'].T, extent=[-10*np.pi,10*np.pi,-10*np.pi,10*np.pi])
+img = ax.imshow(omega['g'].T, extent=[-10*np.pi,10*np.pi,-10*np.pi,10*np.pi], cmap = 'plasma')
 fig.colorbar(img)
 
 solver.stop_sim_time = 200.01
@@ -232,7 +246,7 @@ solver.stop_wall_time = np.inf
 solver.stop_iteration = np.inf
 
 # Initial timestep
-dt = 0.01
+dt = 0.05
 
 # CFL
 CFL = flow_tools.CFL(solver, initial_dt=dt, cadence=10, safety=0.5,
@@ -255,10 +269,8 @@ dt_arr = []
 t = 0
 count = 0
 while solver.ok:
-    #dt = CFL.compute_dt()
-    dt=0.05
+    # change dt here if you want, could potentially use CFL here
     solver.step(dt)
-    #if solver.iteration % 50 == 0:
     if np.abs(t-time_snaps[count])<  0.4/k:
         omega_new = np.array(omega['g'].T)
         omega_list.append(omega_new)                                                                                                                   
@@ -286,7 +298,6 @@ and more importantly a phase shift in the Poisson equation
 
 <img src="https://latex.codecogs.com/svg.image?\xi&space;=&space;\nabla^2\psi&space;-&space;(1-i\hat{\delta})\psi" title="\xi = \nabla^2\psi - (1-i\hat{\delta})\psi" />
 
-
 ```
 viscosity = 0
 k=5.5
@@ -310,7 +321,7 @@ ts = de.timesteppers.RK443
 solver =  problem.build_solver(ts)
 ```
 
-The crux of the project is here. Previous work does not take into account the so called shielding effect which is similar to the one in chemistry - the EM force between protons and the farther electrons gets shielded due to the inner shelll electrons. A similar affect happens in tokamak plasmas. We describe our modification to the THE, the MTHE, along with neoclassical shielding. The evolution equation becomes
+The crux of the project is here. Previous work does not take into account the so called shielding effect which is similar to the one in chemistry - the EM force between protons and the farther electrons gets shielded due to the inner shell electrons. A similar effect happens in tokamak plasmas. We describe our modification to the THE, the MTHE, along with neoclassical shielding. The evolution equation becomes
 
 <img src="https://latex.codecogs.com/svg.image?\frac{\partial&space;\xi}{\partial&space;t}&space;&plus;&space;\textbf{v}\cdot\nabla\xi&space;-&space;\kappa\frac{\partial&space;\xi}{\partial&space;y}&space;&plus;&space;\hat{D}(\xi&space;-&space;\langle\xi\rangle)&space;=&space;0" title="\frac{\partial \xi}{\partial t} + \textbf{v}\cdot\nabla\xi - \kappa\frac{\partial \xi}{\partial y} + \hat{D}(\xi - \langle\xi\rangle) = 0" />
 
@@ -344,7 +355,7 @@ problem.add_equation("u + dy(psi)=0")
 problem.add_equation("v - dx(psi) = 0")
 problem.add_equation("shear_ZF= (integ((dx(dx((integ((psi),'y')/Ly)))**2),'x')/Lx)**(1/2)")
 problem.add_equation("psi_DW = psi - integ((psi),'y')/Ly")
-problem.add_equation("shear_DW = (        integ(   (   (dx(dy(psi)))**2 + (1/2)*(dx(dx(psi_DW)) - dy(dy(psi_DW)))**2  )  ,'x'      )/Lx        )**(1/2)")
+problem.add_equation("shear_DW = (    integ(   (   (dx(dy(psi)))**2 + (1/2)*(dx(dx(psi_DW)) - dy(dy(psi_DW)))**2  )  ,'x'      )/Lx    )**(1/2)")
 
 ```
 ## Numerical Result
