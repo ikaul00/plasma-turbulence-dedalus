@@ -247,13 +247,6 @@ solver.stop_iteration = np.inf
 
 # Initial timestep
 dt = 0.05
-
-# CFL
-CFL = flow_tools.CFL(solver, initial_dt=dt, cadence=10, safety=0.5,
-                     max_change=1.5, min_change=0.5, max_dt=0.4/k, threshold=0.05)
-CFL.add_velocities(('u', 'v'))
-
-time_snaps = np.linspace(0, 200.01, num=1500)
 ```
 
 And now we evolve the equations, while saving ion guiding center density, energy and enstrophy snapshots along the evolution.
@@ -265,7 +258,6 @@ time_arr = list(time_snaps)
 energy_arr.append(np.sum(np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g']) + np.array(psi['g'])*np.array(psi['g'])))
 enstrophy_arr.append(np.sum((np.array(u2['g'])+ np.array(v2['g']))**2 + np.array(u['g'])**2 + np.array(v['g'])**2))
 
-dt_arr = []
 t = 0
 count = 0
 while solver.ok:
@@ -281,11 +273,15 @@ while solver.ok:
 
 ```
 
-Here, we plot the 'vorticity' analog from the hydro case which is called the ion guiding center density in plasma. These show the ion guiding center density evolution with time.
+Here, we plot the 'vorticity' analog from the hydro case which is called the ion guiding center density in plasma. These show the ion guiding center density evolution with time. We also show the density slice evolution for x=0 in the y direction.
 <p float="left">
-  <img src="HME_k_5.5_snap1-1.png" width="330" />
-  <img src="HME_k_5.5_snap2-1.png" width="330" /> 
-  <img src="HME_k_5.5_snap3-1.png" width="330" />
+  <img src="HME_snap1.png" width="330" />
+  <img src="HME_snap2.png" width="330" /> 
+</p>
+
+<p float="left">
+  <img src="HME_slice1.png" width="330" />
+  <img src="HME_slice2.png" width="330" /> 
 </p>
 
 
