@@ -322,7 +322,7 @@ and the shielding factor comes in to the Poisson equation
 
 <img src="https://latex.codecogs.com/svg.image?\xi&space;=&space;\nabla^2\psi&space;&plus;&space;(s-1)\nabla^2\langle\psi\rangle-&space;(1-i\delta_0&space;\frac{\partial}{\partial&space;y})\psi&space;&plus;\langle\psi\rangle" title="\xi = \nabla^2\psi + (s-1)\nabla^2\langle\psi\rangle- (1-i\delta_0 \frac{\partial}{\partial y})\psi +\langle\psi\rangle" />
 
-where the angular brackets represent the y averaged quantity. This averaging represnets the zonal flow contribution, since ZFs only occur in the y direction here. The code then gets modified to
+where the angular brackets represent the y averaged quantity. This averaging represents the zonal flow contribution, since ZFs only occur in the y direction here. The code then gets modified to
 ```
 viscosity = 0 #1e-2
 k=6.0 #0.5
@@ -367,5 +367,5 @@ Here we have k=7, s=10
   <img src="k_7_s_10_snap2-1.png" width="330" /> 
   <img src="k_7_s_10_snap3-1.png" width="330" />
 </p> 
-These show the clear difference in varying the shielding parameter while keeping the density gradient parameter fixed.
+These show the DW enhancement on increasing the shielding parameter while keeping the density gradient parameter fixed.
   
