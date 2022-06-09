@@ -232,7 +232,11 @@ solver.stop_iteration = np.inf
 dt = 0.05
 ```
 
-And now we evolve the equations, while saving ion guiding center density, energy and enstrophy snapshots along the evolution.
+And now we evolve the equations, while saving ion guiding center density, energy and enstrophy snapshots along the evolution. Notice that the equations for enstrophy and energy have now changed to
+<img src="https://latex.codecogs.com/svg.image?\inline&space;Z&space;=&space;\frac{1}{2}\int(|\nabla^2\psi|^2&plus;|\psi|^2)&space;\,d\vec{x}" title="https://latex.codecogs.com/svg.image?\inline Z = \frac{1}{2}\int(|\nabla^2\psi|^2+|\psi|^2) \,d\vec{x}" />
+and 
+<img src="https://latex.codecogs.com/svg.image?\inline&space;E&space;=&space;\frac{1}{2}\int\,&space;(|\nabla\psi|^2&space;&plus;&space;\psi^2)d\vec{x}\," title="https://latex.codecogs.com/svg.image?\inline E = \frac{1}{2}\int\, (|\nabla\psi|^2 + \psi^2)d\vec{x}\," />
+respectively.
 ```
 # Enstrophy/Energy analysis
 enstrophy_arr = []
@@ -267,7 +271,7 @@ Here, we plot the 'vorticity' analog from the hydro case which is called the ion
   <img src="HME_slice2.png" width="330" /> 
 </p>
 
-Below we show the energy and enstrophy conservation plots for the full run.
+Below we show the energy and enstrophy conservation plots for the full run. 
 <p float="left">
   <img src="energy_cons_hme.png" width="330" />
   <img src="enstrophy_cons_hme.png" width="330" /> 
