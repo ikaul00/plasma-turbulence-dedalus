@@ -233,9 +233,13 @@ dt = 0.05
 ```
 
 And now we evolve the equations, while saving ion guiding center density, energy and enstrophy snapshots along the evolution. Notice that the equations for enstrophy and energy have now changed to
+
 <img src="https://latex.codecogs.com/svg.image?\inline&space;Z&space;=&space;\frac{1}{2}\int(|\nabla^2\psi|^2&plus;|\psi|^2)&space;\,d\vec{x}" title="https://latex.codecogs.com/svg.image?\inline Z = \frac{1}{2}\int(|\nabla^2\psi|^2+|\psi|^2) \,d\vec{x}" />
+
 and 
+
 <img src="https://latex.codecogs.com/svg.image?\inline&space;E&space;=&space;\frac{1}{2}\int\,&space;(|\nabla\psi|^2&space;&plus;&space;\psi^2)d\vec{x}\," title="https://latex.codecogs.com/svg.image?\inline E = \frac{1}{2}\int\, (|\nabla\psi|^2 + \psi^2)d\vec{x}\," />
+
 respectively.
 ```
 # Enstrophy/Energy analysis
