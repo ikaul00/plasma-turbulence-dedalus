@@ -49,7 +49,8 @@ import matplotlib.pyplot as plt
 
 from dedalus import public as de
 
-# Aspect ratio 1                                                                                                                                                     Lx, Ly = (2., 2.)
+# Aspect ratio 1 
+Lx, Ly = (2., 2.)
 nx, ny = (200, 200)
 
 # Create bases and domain 
@@ -76,11 +77,12 @@ solver =  problem.build_solver(ts)
 ```
 Now we initialize our gaussian monopoles. As a test we also want to plot the energy and enstrophy evolution, which are initialized here. Ideally we want our code to conserve both of these quantities. The equation for enstrophy is
 
-<img src="https://latex.codecogs.com/svg.image?\inline&space;\Omega&space;=&space;\frac{1}{2}\int\,dx\int\,dy\,&space;\omega^2" title="https://latex.codecogs.com/svg.image?\inline \Omega = \frac{1}{2}\int\,dx\int\,dy\, \omega^2" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;\large&space;Z=&space;\frac{1}{2}\int\,dx\int\,dy\,&space;\omega^2" title="https://latex.codecogs.com/svg.image?\inline \large Z= \frac{1}{2}\int\,dx\int\,dy\, \omega^2" />
 
 and energy
 
-<img src="https://latex.codecogs.com/svg.image?\inline&space;E&space;=&space;\frac{1}{2}\int\,&space;d\vec{x}\,&space;|\nabla\psi|^2" title="https://latex.codecogs.com/svg.image?\inline E = \frac{1}{2}\int\, d\vec{x}\, |\nabla\psi|^2" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;\large&space;E&space;=&space;\frac{1}{2}\int\,&space;d\vec{x}\,&space;|\nabla\psi|^2" title="https://latex.codecogs.com/svg.image?\inline \large E = \frac{1}{2}\int\, d\vec{x}\, |\nabla\psi|^2" />
+
 ```
 # Intializing sigma and mu                                                                                                                                                                                                                          
 sigma = 1
@@ -234,11 +236,11 @@ dt = 0.05
 
 And now we evolve the equations, while saving ion guiding center density, energy and enstrophy snapshots along the evolution. Notice that the equations for enstrophy and energy have now changed to
 
-<img src="https://latex.codecogs.com/svg.image?\inline&space;\LARGE&space;Z&space;=&space;\frac{1}{2}\int(|\nabla^2\psi|^2&plus;|\psi|^2)&space;\,d\vec{x}" title="https://latex.codecogs.com/svg.image?\inline \LARGE Z = \frac{1}{2}\int(|\nabla^2\psi|^2+|\psi|^2) \,d\vec{x}" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;\large&space;Z&space;=&space;\frac{1}{2}\int(|\nabla^2\psi|^2&plus;|\psi|^2)&space;\,d\vec{x}" title="https://latex.codecogs.com/svg.image?\inline \large Z = \frac{1}{2}\int(|\nabla^2\psi|^2+|\psi|^2) \,d\vec{x}" />
 
 and 
 
-<img src="https://latex.codecogs.com/svg.image?\inline&space;\LARGE&space;E&space;=&space;\frac{1}{2}\int\,&space;(|\nabla\psi|^2&space;&plus;&space;\psi^2)d\vec{x}" title="https://latex.codecogs.com/svg.image?\inline \LARGE E = \frac{1}{2}\int\, (|\nabla\psi|^2 + \psi^2)d\vec{x}" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;\large&space;E&space;=&space;\frac{1}{2}\int\,&space;(|\nabla\psi|^2&space;&plus;&space;\psi^2)d\vec{x}" title="https://latex.codecogs.com/svg.image?\inline \large E = \frac{1}{2}\int\, (|\nabla\psi|^2 + \psi^2)d\vec{x}" />
 
 respectively.
 ```
