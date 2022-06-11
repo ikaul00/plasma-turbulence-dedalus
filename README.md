@@ -177,7 +177,7 @@ domain = de.Domain([x_basis, y_basis], grid_dtype=np.float64)
 We then modify the code based on the new equations.
 ```
 viscosity = 0
-k=5.5
+k=0.5
 problem = de.IVP(domain, variables=['omega','psi','u','v', 'u2', 'v2'])                                                                                                                                                                                        
 problem.parameters['nu'] = viscosity
 problem.parameters['k'] = k
@@ -274,13 +274,13 @@ Here, we plot the 'vorticity' analog from the hydro case which is called the ion
 
 <p float="left">
   <img src="HME_slice_1.png" width="330" />
-  <img src="HME_slice_2.png" width="330" /> 
+  <img src="HME_slice_2.png" width="335" /> 
 </p>
 
 Below we show the energy and enstrophy conservation plots for the full run. 
 <p float="left">
   <img src="energy_cons_hme.png" width="310" />
-  <img src="enstrophy_cons_hme.png" width="350" /> 
+  <img src="enstrophy_cons_hme.png" width="360" /> 
 </p>
 
 
