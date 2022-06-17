@@ -165,7 +165,8 @@ plt.savefig('plot_hydro.png', bbox_inches='tight', dpi = 200)
 ```
 After which we finally get the following vorticity snapshot
 <p float="left">
-  <img src="plot_hydro2.png" width="450" />
+  <img src="plot_hydro1.png" width="400" />
+  <img src="plot_hydro2.png" width="400" />
 </p> 
 
 And finally plot the energy and enstrophy evolution. These show that our code worked well, since the change in both of these quantities is very small. To further check your code, a smaller dt should yield better conservation properties, i.e. the change in energy and enstrophy should be smaller for smaller dt.
