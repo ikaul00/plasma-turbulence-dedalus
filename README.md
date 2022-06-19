@@ -72,7 +72,7 @@ from dedalus import public as de
 
 # Aspect ratio 1 
 Lx, Ly = (2., 2.)
-nx, ny = (200, 200)
+nx, ny = (128, 128)
 
 # Create bases and domain 
 x_basis = de.Fourier('x', nx, interval=(-Lx/2, Lx/2), dealias=1)
@@ -129,7 +129,6 @@ time_arr = []
 enstrophy_arr.append(np.sum(np.array(omega['g'])*np.array(omega['g'])))
 energy_arr.append(np.sum(np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g'])))
 
-
 ```
 
 Finally, evolve the system
@@ -142,8 +141,6 @@ while solver.ok:
     #dt = cfl.compute_dt()
     solver.step(dt)
     if solver.iteration % 150 == 0:
-        #print(omega['g'])
-        # Update plot of scalar field                                                                                                                                                                                      
         enstrophy_arr.append(np.sum(np.array(omega['g'])*np.array(omega['g'])))
         energy_arr.append(np.sum(np.array(u['g'])*np.array(u['g']) + np.array(v['g'])*np.array(v['g'])))
         time_arr.append(t)
@@ -167,6 +164,11 @@ After which we finally get the following vorticity snapshot
 <p float="left">
   <img src="plot_hydro1.png" width="400" />
   <img src="plot_hydro2.png" width="400" />
+</p> 
+Along with the vertical slices at y=0 for the different times
+<p float="left">
+  <img src="hydro_slice_1.png" width="330" />
+  <img src="hydro_slice_2.png" width="330" />
 </p> 
 
 And finally plot the energy and enstrophy evolution. These show that our code worked well, since the change in both of these quantities is very small. To further check your code, a smaller dt should yield better conservation properties, i.e. the change in energy and enstrophy should be smaller for smaller dt.
